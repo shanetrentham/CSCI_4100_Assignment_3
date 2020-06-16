@@ -6,31 +6,36 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "bbuff.h"
 
 /* Initiailze a message structure */
 void bb_init_msg(struct bb_msg *msg, int t_id, int m_id) {
-  /* YOUR CODE HERE */
+  msg->t_id = t_id;
+  msg->m_id = m_id;
 }
 
 /* Copy the source message to the destination message */
 void bb_copy_msg(struct bb_msg * source, struct bb_msg * destination) {
-  /* YOUR CODE HERE */
+  source->m_id = destination->m_id;
+  source->t_id = destination->t_id;
 }
 
 /* Display the contents of a message along with the id of the receiver */
 void bb_display_msg(struct bb_msg *msg, int receiver) {
-  /* YOUR CODE HERE */
+  printf("message %d, recieving thread %d", msg->m_id, receiver);
 }
 
 /* Initialize the bounded buffer */
 void bb_init(struct bbuff * buffer) {
-  /* YOUR CODE HERE */
+  buffer->in = 0;
+  buffer->out = 0;
+  buffer->lock = pthread_mutex_init(&my_lock, NULL);
 }
 
 /* Send a message to a bounded buffer */
 void bb_send(struct bbuff * buffer, struct bb_msg * message) {
-  /* YOUR CODE HERE */
+  pthread_mutex_lock(&my_lock);
 }
 
 /* Receive a message from a bounded buffer */
